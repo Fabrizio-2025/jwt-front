@@ -1,0 +1,25 @@
+<div class="w-12 h-screen bg-black-alpha-30 flex">
+  <div
+    class="w-6 flex h-full align-items-center justify-content-center bg-yellow-300"
+  >
+    <h1>Bienvenido al</h1>
+  </div>
+  <div class="w-6 flex align-items-center justify-content-center">
+    <div class="h-21rem w-6 p-4">
+      <h2 class="h-2rem">Register</h2>
+      <form class="h-15rem flex flex-column justify-content-evenly" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="h-5rem">
+          <input matInput placeholder="Enter your username" formControlName="username" required />
+        </mat-form-field>
+        <mat-form-field class="h-5rem m-0 p-0">
+          <input matInput type="password" placeholder="Enter your password" formControlName="password" required />
+        </mat-form-field>
+        <div class="w-10 flex justify-content-evenly">
+          <button mat-raised-button color="primary" type="submit">Register</button>
+          <button mat-raised-button color="accent" (click)="goToLogin()">Login</button>
+        </div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </form>
+    </div>
+  </div>
+</div>
