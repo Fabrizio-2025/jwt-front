@@ -11,6 +11,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TolbarComponent } from './components/tolbar/tolbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,6 +24,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -37,6 +40,7 @@ const routes: Routes = [
     LoginComponent,
     HomeComponent,
     RegisterComponent,
+    TolbarComponent,
   ],
   imports: [
     BrowserModule,
