@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -28,9 +29,12 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      this.authService.login(username, password).subscribe(
+      const user: User = { username, password };
+      this.authService.login(user).subscribe(
         (response) => {
-          // Handle successful login and redirect to home
+          // Almacenar el userId en el localStorage
+          console.log(response);
+          localStorage.setItem('userId', response.userId.toString());
           this.router.navigate(['/home']);
         },
         (error) => {
@@ -39,6 +43,7 @@ export class LoginComponent implements OnInit {
       );
     }
   }
+
   goToRegister(): void {
     this.router.navigate(['/register']);
   }

@@ -1,0 +1,14 @@
+<div *ngIf="certificaciones.length > 0; else noCertifications">
+  <h2>Certificaciones</h2>
+  <ul>
+    <li *ngFor="let certificacion of certificaciones">
+      <h3>{{ certificacion.nombre }}</h3>
+      <p>Fecha: {{ certificacion.fecha | date }}</p>
+      <p>Tipo: {{ certificacion.tipo }}</p>
+      <p>Precio: {{ certificacion.precio }}</p>
+    </li>
+  </ul>
+</div>
+<ng-template #noCertifications>
+  <p>No hay certificaciones disponibles para este usuario.</p>
+</ng-template>

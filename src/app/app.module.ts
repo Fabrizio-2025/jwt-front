@@ -12,6 +12,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TolbarComponent } from './components/tolbar/tolbar.component';
+import { ListCertificacionesComponent } from './components/list-certificaciones/list-certificaciones.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -32,6 +33,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'certifications/user/:userId', component: ListCertificacionesComponent },
+
 ];
 
 @NgModule({
@@ -41,6 +44,7 @@ const routes: Routes = [
     HomeComponent,
     RegisterComponent,
     TolbarComponent,
+    ListCertificacionesComponent,
   ],
   imports: [
     BrowserModule,
