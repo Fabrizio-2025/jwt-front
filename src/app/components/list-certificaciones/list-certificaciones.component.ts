@@ -1,26 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CertificacionService } from '../../services/certificacion.service';
 import { Certificacion } from '../../models/certificacion.model';
-import { OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { CertificacionSummary } from '../../models/certificacionsummary.model';
 
 @Component({
   selector: 'app-list-certificaciones',
   templateUrl: './list-certificaciones.component.html',
-  styleUrl: './list-certificaciones.component.css',
+  styleUrls: ['./list-certificaciones.component.css'],
 })
 export class ListCertificacionesComponent implements OnInit {
   certificaciones: Certificacion[] = [];
-  userId!: number;
+  certificacionSummary!: CertificacionSummary;
+  addCertificacionForm: FormGroup;
+  showAddForm = false;
 
   constructor(
     private certificacionService: CertificacionService,
-    private route: ActivatedRoute
-  ) {}
+    private fb: FormBuilder
+  ) {
+    this.addCertificacionForm = this.fb.group({
+      nombre: ['', Validators.required],
+      fecha: ['', Validators.required],
+      tipo: ['', Validators.required],
+      precio: ['', [Validators.required, Validators.min(0)]],
+    });
+  }
 
   ngOnInit(): void {
-    this.userId = 1; // O obtener el userId de alguna manera
     this.loadCertifications();
+    this.loadCertificationsSummary();
   }
 
   loadCertifications(): void {
@@ -32,5 +41,38 @@ export class ListCertificacionesComponent implements OnInit {
         console.error('Error fetching certifications', error);
       }
     );
+  }
+
+  loadCertificationsSummary(): void {
+    this.certificacionService.getCertificationsSummaryByUser().subscribe(
+      (summary) => {
+        this.certificacionSummary = summary;
+      },
+      (error) => {
+        console.error('Error fetching certification summary', error);
+      }
+    );
+  }
+
+  onSubmit(): void {
+    if (this.addCertificacionForm.valid) {
+      const userId = Number(localStorage.getItem('userId'));
+      const newCertificacion: Certificacion = {
+        ...this.addCertificacionForm.value,
+        userId: userId,
+      };
+
+      this.certificacionService.addCertificacion(newCertificacion).subscribe(
+        (response) => {
+          this.certificaciones.push(response);
+          this.showAddForm = false;
+          this.addCertificacionForm.reset();
+          this.loadCertificationsSummary(); // Update summary after adding a new certification
+        },
+        (error) => {
+          console.error('Error adding certification', error);
+        }
+      );
+    }
   }
 }

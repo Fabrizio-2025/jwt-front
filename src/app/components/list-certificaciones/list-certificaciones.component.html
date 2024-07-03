@@ -1,3 +1,9 @@
+<div>
+  <h2>Resumen de Certificaciones</h2>
+  <p>Cantidad de certificaciones: {{ certificacionSummary.cantidad }}</p>
+  <p>Precio total: {{ certificacionSummary.precioTotal |currency}}</p>
+</div>
+
 <div *ngIf="certificaciones.length > 0; else noCertifications">
   <h2>Certificaciones</h2>
   <ul>
@@ -5,10 +11,30 @@
       <h3>{{ certificacion.nombre }}</h3>
       <p>Fecha: {{ certificacion.fecha | date }}</p>
       <p>Tipo: {{ certificacion.tipo }}</p>
-      <p>Precio: {{ certificacion.precio }}</p>
+      <p>Precio: {{ certificacion.precio | currency }}</p>
     </li>
   </ul>
 </div>
 <ng-template #noCertifications>
   <p>No hay certificaciones disponibles para este usuario.</p>
 </ng-template>
+
+<button (click)="showAddForm = !showAddForm">{{ showAddForm ? 'Cancelar' : 'Agregar Certificación' }}</button>
+
+<div *ngIf="showAddForm">
+  <form [formGroup]="addCertificacionForm" (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" formControlName="nombre" required>
+
+    <label for="fecha">Fecha:</label>
+    <input id="fecha" type="date" formControlName="fecha" required>
+
+    <label for="tipo">Tipo:</label>
+    <input id="tipo" formControlName="tipo" required>
+
+    <label for="precio">Precio:</label>
+    <input id="precio" type="number" formControlName="precio" required>
+
+    <button type="submit">Agregar Certificación</button>
+  </form>
+</div>
