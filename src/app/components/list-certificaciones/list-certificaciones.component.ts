@@ -11,9 +11,17 @@ import { CertificacionSummary } from '../../models/certificacionsummary.model';
 })
 export class ListCertificacionesComponent implements OnInit {
   certificaciones: Certificacion[] = [];
-  certificacionSummary!: CertificacionSummary;
+  certificacionSummary: CertificacionSummary = {
+    cantidad: 0,
+    precioTotal: 0,
+    certificadoMasUsado1: '',
+    cantidadCertificadoMasUsado1: 0,
+    certificadoMasUsado2: '',
+    cantidadCertificadoMasUsado2: 0,
+  }; // Inicialización predeterminada
   addCertificacionForm: FormGroup;
   showAddForm = false;
+  userId: number;
 
   constructor(
     private certificacionService: CertificacionService,
@@ -25,6 +33,7 @@ export class ListCertificacionesComponent implements OnInit {
       tipo: ['', Validators.required],
       precio: ['', [Validators.required, Validators.min(0)]],
     });
+    this.userId = Number(localStorage.getItem('userId'));
   }
 
   ngOnInit(): void {

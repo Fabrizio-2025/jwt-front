@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -28,8 +28,8 @@ export class RegisterComponent {
       const user = this.registerForm.value;
       this.authService.register(user).subscribe({
         next: (response: any) => {
-          // Manejar el registro exitoso y redirigir al login
-          this.registerForm.reset(); // Limpiar los campos del formulario
+          
+          this.registerForm.reset();
           this.router.navigate(['/login']);
         },
         error: (error: any) => {

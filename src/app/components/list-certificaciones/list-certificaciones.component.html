@@ -1,40 +1,50 @@
-<div>
+<app-tolbar></app-tolbar>
+<div class="p-2" *ngIf="certificacionSummary">
   <h2>Resumen de Certificaciones</h2>
   <p>Cantidad de certificaciones: {{ certificacionSummary.cantidad }}</p>
-  <p>Precio total: {{ certificacionSummary.precioTotal |currency}}</p>
+  <p>Precio total: {{ certificacionSummary.precioTotal | currency }}</p>
 </div>
+<button class="ml-2" (click)="showAddForm = !showAddForm">
+  {{ showAddForm ? "Cancelar" : "Agregar Certificación" }}
+</button>
+<div class="p-2" *ngIf="showAddForm">
+  <form [formGroup]="addCertificacionForm" (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" formControlName="nombre" required />
 
-<div *ngIf="certificaciones.length > 0; else noCertifications">
+    <label for="fecha">Fecha:</label>
+    <input id="fecha" type="date" formControlName="fecha" required />
+
+    <label for="tipo">Tipo:</label>
+    <input id="tipo" formControlName="tipo" required />
+
+    <label for="precio">Precio:</label>
+    <input id="precio" type="number" formControlName="precio" required />
+
+    <button class="" type="submit">Agregar Certificación</button>
+  </form>
+</div>
+<div class="p-2" *ngIf="certificaciones.length > 0; else noCertifications">
   <h2>Certificaciones</h2>
-  <ul>
-    <li *ngFor="let certificacion of certificaciones">
-      <h3>{{ certificacion.nombre }}</h3>
-      <p>Fecha: {{ certificacion.fecha | date }}</p>
-      <p>Tipo: {{ certificacion.tipo }}</p>
-      <p>Precio: {{ certificacion.precio | currency }}</p>
+
+
+  <ul class="flex w-12 bg-blue-400 h-30rem overflow-x-auto">
+    <li
+      class="list-none bg-black-alpha-40 m-2 w-20rem h-10rem gap-2"
+      *ngFor="let certificacion of certificaciones"
+    >
+      <div class="flex justify-content-center flex-column align-items-center justify-content-between h-2rem" >
+        <h3>{{ certificacion.nombre }}</h3>
+        <p>Fecha: {{ certificacion.fecha | date }}</p>
+        <p>Tipo: {{ certificacion.tipo }}</p>
+        <p>Precio: {{ certificacion.precio | currency }}</p>
+      </div>
     </li>
   </ul>
 </div>
-<ng-template #noCertifications>
-  <p>No hay certificaciones disponibles para este usuario.</p>
+<ng-template  #noCertifications>
+  <p class="p-2" >No hay certificaciones disponibles para este usuario.</p>
 </ng-template>
 
-<button (click)="showAddForm = !showAddForm">{{ showAddForm ? 'Cancelar' : 'Agregar Certificación' }}</button>
 
-<div *ngIf="showAddForm">
-  <form [formGroup]="addCertificacionForm" (ngSubmit)="onSubmit()">
-    <label for="nombre">Nombre:</label>
-    <input id="nombre" formControlName="nombre" required>
 
-    <label for="fecha">Fecha:</label>
-    <input id="fecha" type="date" formControlName="fecha" required>
-
-    <label for="tipo">Tipo:</label>
-    <input id="tipo" formControlName="tipo" required>
-
-    <label for="precio">Precio:</label>
-    <input id="precio" type="number" formControlName="precio" required>
-
-    <button type="submit">Agregar Certificación</button>
-  </form>
-</div>

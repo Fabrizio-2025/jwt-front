@@ -5,14 +5,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthGuard } from './auth/auth.guard';
-import { HomeComponent } from './components/home/home.component';
-import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './views/home/home.component';
 import { TolbarComponent } from './components/tolbar/tolbar.component';
 import { ListCertificacionesComponent } from './components/list-certificaciones/list-certificaciones.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import { GraficoComponent } from './views/grafico/grafico.component';
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,6 +28,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+import { ChartModule } from 'primeng/chart';
+
 
 
 const routes: Routes = [
@@ -34,6 +38,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'certifications/user/:userId', component: ListCertificacionesComponent },
+  { path: 'grafico', component: GraficoComponent, canActivate: [AuthGuard] },
 
 ];
 
@@ -45,6 +50,7 @@ const routes: Routes = [
     RegisterComponent,
     TolbarComponent,
     ListCertificacionesComponent,
+    GraficoComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +67,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+
+    ChartModule,
   ],
   providers: [
     AuthService,

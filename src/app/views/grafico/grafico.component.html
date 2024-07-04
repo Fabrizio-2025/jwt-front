@@ -1,0 +1,10 @@
+<app-tolbar></app-tolbar>
+<h1 class="ml-5" >Las Marcas de Certificados mas repetidas</h1>
+<div class="flex justify-content-center card w-12 h-30rem align-items-center mt-4">
+  <ng-container *ngIf="basicData; else noCertifications">
+    <p-chart class="h-full w-full flex justify-content-center" height="100%" width="80%" type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+  </ng-container>
+  <ng-template #noCertifications>
+    <p>No hay certificados, por lo tanto no hay grafico.</p>
+  </ng-template>
+</div>

@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
       const user: User = { username, password };
       this.authService.login(user).subscribe(
         (response) => {
-          // Almacenar el userId en el localStorage
+          
           console.log(response);
           localStorage.setItem('userId', response.userId.toString());
           this.router.navigate(['/home']);
@@ -48,3 +49,4 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 }
+

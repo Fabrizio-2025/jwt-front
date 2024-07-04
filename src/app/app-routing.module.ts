@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './views/home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ListCertificacionesComponent } from './components/list-certificaciones/list-certificaciones.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import { GraficoComponent } from './views/grafico/grafico.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
     path: 'certifications/user/:userId',
     component: ListCertificacionesComponent,
   },
+  { path: 'grafico', component: GraficoComponent, canActivate: [AuthGuard] }, // Añadir esta línea para el nuevo componente
 ];
 
 @NgModule({
